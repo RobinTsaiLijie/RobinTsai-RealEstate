@@ -8,7 +8,7 @@
     min-height: 100vh;
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    background: white;
+    background: #EBDED4;
 }
 
 #about h2 {
@@ -139,16 +139,21 @@
 @media (min-width: 480px) {
     #about {
         padding: 2.5rem 1rem;
+        background: #EBDED4;
     }
     
-    #about h2, #about h3, #about h4 {
+    #about h2,
+    #about h3,
+    #about h4 {
         margin-left: 1rem;
         margin-right: 1rem;
         font-size: 2rem;
         font-family: 'Comic Sans MS', cursive;
     }
     
-    #about p, #about .p2, #about .p3 {
+    #about p,
+    #about .p2,
+    #about .p3 {
         margin-left: 1rem;
         margin-right: 1rem;
         font-size: 1rem;
@@ -172,9 +177,12 @@
         text-align: left;
         padding: 4rem 2rem;
         min-height: 100vh;
+        background: #EBDED4;
     }
     
-    #about h2, #about h3, #about h4 {
+    #about h2,
+    #about h3,
+    #about h4 {
         margin-left: 50px;
         margin-right: 50px;
         font-size: 2.5rem;
@@ -182,7 +190,9 @@
         font-family: 'Comic Sans MS', cursive;
     }
     
-    #about p, #about .p2, #about .p3 {
+    #about p,
+    #about .p2,
+    #about .p3 {
         margin-left: 50px;
         margin-right: 50px;
         font-size: 1.1rem;
@@ -228,9 +238,12 @@
         padding-top: 6rem;
         padding-bottom: 1rem;
         min-height: 120vh;
+        background: #EBDED4;
     }
     
-    #about h2, #about h3, #about h4 {
+    #about h2,
+    #about h3,
+    #about h4 {
         margin-left: 100px;
         margin-right: 100px;
         font-size: 3rem;

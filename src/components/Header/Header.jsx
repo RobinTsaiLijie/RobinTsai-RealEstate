@@ -43,7 +43,7 @@ const Header = () => {
       <div className="container">
         <nav>
           <div className="logo">
-            <img src={`${process.env.PUBLIC_URL}/images/PageLogo.png`} alt="Real Estate Logo" />
+            <img src={`${process.env.PUBLIC_URL}/images/PageLogoNEW.png`} alt="Real Estate Logo" />
             <div className="logo-text">
               <h1 className="name">Robin Tsai</h1>
             </div>

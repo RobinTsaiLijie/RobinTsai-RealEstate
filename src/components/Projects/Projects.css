@@ -1,124 +1,658 @@
-/* PROJECTS SECTION - Mobile First */
+/* =====================================================
+   FINANCIAL CALCULATOR
+===================================================== */
 
-/* MOBILE FIRST - Base styles */
-.projects-section {
-    position: relative;
-    padding: 2rem 1rem;
-    text-align: center;
-    min-height: 100vh;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    background: white;
-    overflow: hidden;
+.projects-section{
+
+    width:100%;
+    min-height:100vh;
+
+    padding:90px 20px;
+
+    background:#EBDED4;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+    overflow:hidden;
+}
+
+.financial-page{
+
+    width:100%;
+    max-width:1200px;
+
+    margin:auto;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.financial-header{
+
+    text-align:center;
+
+    margin-bottom:45px;
+}
+
+.financial-kicker{
+
+    color:#8D6E63;
+
+    text-transform:uppercase;
+
+    font-size:.82rem;
+
+    letter-spacing:.22em;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+}
+
+.financial-header h2{
+
+    margin:0;
+
+    font-size:clamp(2.4rem,5vw,4rem);
+
+    color:#3D2E2A;
+
+    font-weight:700;
+}
+
+.financial-header p{
+
+    max-width:650px;
+
+    margin:18px auto 0;
+
+    color:#6E625B;
+
+    line-height:1.7;
+}
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.financial-layout{
+
+    display:grid;
+
+    grid-template-columns:1fr 420px;
+
+    gap:30px;
+
+    align-items:flex-start;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.financial-form,
+.financial-summary{
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:
+
+        0 18px 45px rgba(0,0,0,.08);
+
+}
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.form-section-heading{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+    margin-bottom:28px;
+}
+
+.form-section-heading.cpf-heading{
+
+    margin-top:35px;
+}
+
+.form-section-heading span{
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#8D6E63;
+
+    color:white;
+
+    font-weight:bold;
+}
+
+.form-section-heading h3{
+
+    margin:0;
+
+    color:#3D2E2A;
+}
+
+.form-section-heading p{
+
+    margin-top:5px;
+
+    color:#777;
+}
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group{
+
+    margin-bottom:22px;
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    color:#4D403A;
+}
+
+.form-group select{
+
+    width:100%;
+
+    height:55px;
+
+    border-radius:12px;
+
+    border:1px solid #D7CCC8;
+
+    padding:0 15px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.25s;
+}
+
+.form-group select:focus{
+
+    border-color:#8D6E63;
+}
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.currency-input{
+
+    display:flex;
+
+    align-items:center;
+
+    border:1px solid #D7CCC8;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    transition:.25s;
+}
+
+.currency-input:focus-within{
+
+    border-color:#8D6E63;
+}
+
+.currency-input span{
+
+    width:60px;
+
+    text-align:center;
+
+    background:#F8F5F2;
+
+    color:#6D4C41;
+
+    font-weight:bold;
+
+    height:55px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.currency-input input{
+
+    flex:1;
+
+    height:55px;
+
+    border:none;
+
+    outline:none;
+
+    padding:0 15px;
+
+    font-size:16px;
+
+    background:white;
+}
+
+.currency-input input::placeholder{
+
+    color:#B0A7A1;
+}
+
+.input-error{
+
+    margin-top:6px;
+
+    color:#D32F2F;
+
+    font-size:.82rem;
+}
+
+.form-error-banner{
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:#FCE8E6;
+
+    color:#B3261E;
+
+    font-size:.9rem;
+}
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.financial-summary{
+
+    position:sticky;
+
+    top:100px;
+}
+
+.summary-heading p{
+
+    margin:0;
+
+    color:#8D6E63;
+
+    text-transform:uppercase;
+
+    font-size:.78rem;
+
+    letter-spacing:.18em;
+}
+
+.summary-heading h3{
+
+    margin-top:8px;
+
+    color:#3D2E2A;
+
+    font-size:2rem;
+}
+
+.summary-block{
+
+    margin-top:25px;
+
+    padding-bottom:18px;
+
+    border-bottom:1px solid #ECE2DC;
+}
+
+.summary-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+    padding:12px 0;
+}
+
+.summary-row span{
+
+    color:#6D625C;
+}
+
+.summary-row strong{
+
+    color:#3D2E2A;
+}
+
+.summary-row small{
+
+    display:block;
+
+    color:#A09088;
+
+    margin-top:3px;
+}
+/* =====================================================
+   GROSS GAIN
+===================================================== */
+
+.summary-total {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    gap: 18px;
+
+    padding: 20px 0;
 }
 
-.projects-section h2 {
-    font-size: 1.8rem;
-    color: #333;
+.summary-total span {
+    color: #6D625C;
     font-weight: 700;
-    margin-bottom: 1.5rem;
-    font-family: 'Comic Sans MS', cursive;
 }
 
-.projects-section h3 {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 1.5rem;
-    margin-left: 0;
-    text-align: center;
-    font-family: 'Comic Sans MS', cursive;
+.summary-total strong {
+    color: #3D2E2A;
+    font-size: 1.65rem;
 }
 
-.projects-section img {
-    max-width: 100%;
-    width: 100%;
-    max-width: 280px;
-    margin-left: 0;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* =====================================================
+   EXPENSES
+===================================================== */
+
+.expenses-card {
+    margin-top: 8px;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background: #F8F3EF;
+
+    border: 1px solid #E8DCD4;
 }
 
-.projects-section img:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(3, 213, 245, 0.3);
+.expenses-card h4 {
+    margin: 0 0 10px;
+
+    color: #3D2E2A;
+
+    font-size: 1rem;
 }
 
-/* SMALL MOBILE - 480px and up */
-@media (min-width: 480px) {
+.expenses-total {
+    margin-top: 8px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #E1D3CA;
+}
+
+.expenses-total span,
+.expenses-total strong {
+    font-weight: 700;
+}
+
+/* =====================================================
+   NET PROFIT
+===================================================== */
+
+.net-profit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+
+    margin-top: 24px;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #D8B477 0%,
+        #E8C98F 100%
+    );
+
+    color: #3D2E2A;
+
+    box-shadow: 0 14px 30px rgba(141, 110, 99, 0.18);
+}
+
+.net-profit span {
+    font-weight: 700;
+}
+
+.net-profit strong {
+    font-size: 1.8rem;
+    white-space: nowrap;
+}
+
+.net-profit.negative {
+    background: linear-gradient(
+        135deg,
+        #C85A4A 0%,
+        #E58A7B 100%
+    );
+
+    color: white;
+}
+
+/* =====================================================
+   CAVEAT
+===================================================== */
+
+.financial-caveat {
+    margin-top: 18px;
+
+    padding: 14px 16px;
+
+    border-radius: 12px;
+
+    background: #F4ECE7;
+
+    color: #6E625B;
+
+    font-size: 0.82rem;
+
+    line-height: 1.55;
+}
+
+.financial-caveat strong {
+    color: #3D2E2A;
+}
+
+/* =====================================================
+   HOVER EFFECTS
+===================================================== */
+
+.financial-form,
+.financial-summary {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.financial-form:hover,
+.financial-summary:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 22px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
     .projects-section {
-        padding: 2.5rem 1rem;
+        padding: 70px 16px;
     }
-    
-    .projects-section h2 {
+
+    .financial-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .financial-summary {
+        position: static;
+    }
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .projects-section {
+        padding: 55px 12px;
+    }
+
+    .financial-header {
+        margin-bottom: 30px;
+    }
+
+    .financial-header h2 {
+        font-size: 2.3rem;
+    }
+
+    .financial-header p {
+        font-size: 0.92rem;
+    }
+
+    .financial-form,
+    .financial-summary {
+        padding: 24px 18px;
+
+        border-radius: 20px;
+    }
+
+    .form-section-heading {
+        gap: 12px;
+    }
+
+    .form-section-heading span {
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
+    }
+
+    .form-section-heading h3 {
+        font-size: 1rem;
+    }
+
+    .form-section-heading p {
+        font-size: 0.82rem;
+    }
+
+    .form-group select,
+    .currency-input,
+    .currency-input span,
+    .currency-input input {
+        height: 52px;
+    }
+
+    .summary-heading h3 {
+        font-size: 1.65rem;
+    }
+
+    .summary-row {
+        gap: 10px;
+
+        font-size: 0.88rem;
+    }
+
+    .summary-row strong {
+        font-size: 0.88rem;
+
+        text-align: right;
+    }
+
+    .summary-total {
+        gap: 12px;
+    }
+
+    .summary-total strong {
+        font-size: 1.35rem;
+    }
+
+    .net-profit {
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 20px;
+    }
+
+    .net-profit strong {
+        font-size: 1.55rem;
+    }
+
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .financial-header h2 {
         font-size: 2rem;
-        font-family: 'Comic Sans MS', cursive;
     }
-    
-    .projects-section h3 {
-        font-size: 1.2rem;
-        font-family: 'Comic Sans MS', cursive;
-    }
-    
-    .projects-section img {
-        max-width: 320px;
-    }
-}
 
-/* TABLET - 768px and up */
-@media (min-width: 768px) {
-    .projects-section {
-        padding: 3rem 2rem;
-        min-height: 100vh;
+    .financial-form,
+    .financial-summary {
+        padding: 20px 14px;
     }
-    
-    .projects-section h2 {
-        font-size: 2.5rem;
-        font-family: 'Comic Sans MS', cursive;
-    }
-    
-    .projects-section h3 {
-        font-size: 1.3rem;
-        margin-left: 0;
-        text-align: center;
-        font-family: 'Comic Sans MS', cursive;
-    }
-    
-    .projects-section img {
-        max-width: 350px;
-        margin-left: 0;
-    }
-    
-    .projects-section img:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 35px rgba(3, 213, 245, 0.4);
-    }
-}
 
-/* DESKTOP - 1024px and up */
-@media (min-width: 1024px) {
-    .projects-section {
-        padding: 4rem 2rem;
+    .currency-input span {
+        width: 52px;
     }
-    
-    .projects-section h2 {
-        font-size: 3rem;
-        font-family: 'Comic Sans MS', cursive;
+
+    .summary-row {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    
-    .projects-section h3 {
-        font-size: 1.4rem;
-        margin-left: 0;
-        text-align: center;
-        font-family: 'Comic Sans MS', cursive;
+
+    .summary-row strong {
+        text-align: left;
     }
-    
-    .projects-section img {
-        max-width: 400px;
-        margin-left: 0;
-    }
+
 }

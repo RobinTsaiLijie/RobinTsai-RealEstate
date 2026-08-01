@@ -5,7 +5,7 @@ const About = () => {
   return (
     <section id="about" className="section">
       <h2>About Me</h2>
-      <p>I'm Robin, a 25-year-old real estate professional based in Woodlands, serving clients across Singapore. I began my career in 2024, driven by a passion for guiding clients through their property journey and finding fulfillment in seeing their satisfaction with each successful transaction. I provide <strong>data-driven insights</strong>, <strong>strategic marketing</strong>, and a <strong>client-first approach</strong> to help you make confident property decisions.</p>
+      <p>I'm Robin, a 26-year-old real estate professional based in Woodlands, serving clients across Singapore. I began my career in 2024, driven by a passion for guiding clients through their property journey and finding fulfillment in seeing their satisfaction with each successful transaction. I provide <strong>data-driven insights</strong>, <strong>strategic marketing</strong>, and a <strong>client-first approach</strong> to help you make confident property decisions.</p>
       
       <h3>My Mission & Vision</h3>
       <p className="p2">My passion lies in helping families and investors make <strong>confident</strong> property decisions – whether it's finding their dream home, upgrading to a better space, or selling at the <strong>highest possible price.</strong></p>

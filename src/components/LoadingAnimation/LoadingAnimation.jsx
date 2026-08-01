@@ -1,272 +1,276 @@
-// ChineseNewYearAnimation.jsx
-import React, { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import './LoadingAnimation.css';
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import "./LoadingAnimation.css";
+
+const landscapeMoon = `${process.env.PUBLIC_URL}/images/landscapeMoon.png`;
+const portraitMoon = `${process.env.PUBLIC_URL}/images/portraitMoon.png`;
+const lanternImage = `${process.env.PUBLIC_URL}/images/lantern.png`;
+
+const DISPLAY_DURATION = 5000;
 
 const LoadingAnimation = ({ onLoadingComplete }) => {
-  const [isVisible, setIsVisible] = useState(true);
-  const overlayRef = useRef(null);
-  const medallionRef = useRef(null);
-  const nameRef = useRef(null);
-  const sloganRef = useRef(null);
-  const greetingRef = useRef(null);
-  const lanternRef = useRef(null);
-  const petalsRef = useRef([]);
-  const goldParticlesRef = useRef([]);
 
-  useEffect(() => {
-    const tl = gsap.timeline();
+    const [isVisible,setIsVisible] = useState(true);
 
-    // Create cherry blossom petals
-    const petalCount = 30;
-    for (let i = 0; i < petalCount; i++) {
-      const petal = document.createElement('div');
-      petal.className = 'petal';
-      petal.style.left = `${Math.random() * 100}%`;
-      petal.style.top = `${-10 + Math.random() * 20}%`;
-      overlayRef.current.appendChild(petal);
-      petalsRef.current.push(petal);
+    const overlayRef = useRef(null);
+    const contentRef = useRef(null);
+
+    const lanternRefs = useRef([]);
+
+    const lanterns = useMemo(()=>[
+
+        {id:1,left:5,size:60,duration:5,delay:0,drift:50},
+        {id:2,left:14,size:95,duration:5,delay:0,drift:-65},
+        {id:3,left:24,size:70,duration:7,delay:0,drift:45},
+        {id:4,left:34,size:130,duration:6,delay:0,drift:-80},
+        {id:5,left:46,size:80,duration:5,delay:0,drift:70},
+
+        {id:6,left:57,size:115,duration:4,delay:0,drift:-55},
+        {id:7,left:68,size:65,duration:6,delay:0,drift:40},
+        {id:8,left:78,size:125,duration:4,delay:0,drift:-90},
+        {id:9,left:88,size:85,duration:5,delay:0,drift:60},
+        {id:10,left:95,size:55,duration:6,delay:0,drift:-45},
+
+    ],[]);
+
+    useEffect(()=>{
+
+        const tl = gsap.timeline();
+
+        gsap.fromTo(
+
+            overlayRef.current,
+
+            {
+                opacity:0
+            },
+
+            {
+                opacity:1,
+                duration:1
+            }
+
+        );
+
+        gsap.fromTo(
+
+            contentRef.current.children,
+
+            {
+
+                opacity:0,
+                y:35
+
+            },
+
+            {
+
+                opacity:1,
+                y:0,
+                stagger:.22,
+                duration:1,
+                delay:.4,
+                ease:"power3.out"
+
+            }
+
+        );
+
+        lanternRefs.current.forEach((lantern,index)=>{
+
+            if(!lantern) return;
+
+            const config = lanterns[index];
+
+            gsap.set(lantern,{
+
+                xPercent:-50,
+
+                y:window.innerHeight+300,
+
+                rotation:-8+Math.random()*16,
+
+                opacity:.45+Math.random()*.5
+
+            });
+
+            gsap.to(lantern,{
+
+                y:-window.innerHeight-350,
+
+                x:config.drift,
+
+                duration:config.duration,
+
+                delay:config.delay,
+
+                repeat:-1,
+
+                ease:"none"
+
+            });
+
+            gsap.to(lantern,{
+
+                rotation:8,
+
+                x:`+=${35+Math.random()*40}`,
+
+                duration:3+Math.random()*2,
+
+                repeat:-1,
+
+                yoyo:true,
+
+                ease:"sine.inOut"
+
+            });
+
+            gsap.to(lantern,{
+
+                scale:1.05,
+
+                duration:2,
+
+                repeat:-1,
+
+                yoyo:true,
+
+                ease:"sine.inOut"
+
+            });
+
+        });
+
+        const timer = setTimeout(()=>{
+
+            gsap.to(
+
+                overlayRef.current,
+
+                {
+
+                    opacity:0,
+
+                    duration:1.2,
+
+                    onComplete:()=>{
+
+                        setIsVisible(false);
+
+                        if(onLoadingComplete){
+
+                            onLoadingComplete();
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+        },DISPLAY_DURATION);
+
+        return ()=>{
+
+            clearTimeout(timer);
+
+            tl.kill();
+
+        };
+
+    },[lanterns,onLoadingComplete]);
+
+    if(!isVisible){
+
+        return null;
+
     }
+        return (
+        <div
+            ref={overlayRef}
+            className="mid-autumn-loading"
+            style={{
+                "--desktop-background": `url(${landscapeMoon})`,
+                "--mobile-background": `url(${portraitMoon})`,
+            }}
+        >
 
-    // Create golden particles
-    const goldCount = 40;
-    for (let i = 0; i < goldCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'gold-particle';
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      overlayRef.current.appendChild(particle);
-      goldParticlesRef.current.push(particle);
-    }
+            {/* Background */}
+            <div className="mid-autumn-loading__background" />
+            <div className="mid-autumn-loading__shade" />
+            <div className="mid-autumn-loading__stars" />
 
-    // Animate cherry blossom petals falling and rotating
-    petalsRef.current.forEach((petal, i) => {
-      const randomDelay = Math.random() * 3;
-      const randomDuration = 4 + Math.random() * 3;
-      const randomX = Math.random() * 200 - 100;
-      
-      gsap.to(petal, {
-        y: '120vh',
-        x: randomX,
-        rotation: 360 + Math.random() * 360,
-        opacity: 0.8,
-        duration: randomDuration,
-        delay: randomDelay,
-        ease: 'sine.inOut',
-        onComplete: () => {
-          // Reset and repeat
-          gsap.set(petal, { y: '-10%', x: 0, rotation: 0 });
-          gsap.to(petal, {
-            y: '120vh',
-            x: Math.random() * 200 - 100,
-            rotation: 360 + Math.random() * 360,
-            opacity: 0.8,
-            duration: randomDuration,
-            ease: 'sine.inOut',
-            repeat: -1,
-            repeatDelay: Math.random() * 2
-          });
-        }
-      });
-    });
+            {/* Flying Lanterns */}
+            <div className="lantern-field">
 
-    // Animate golden particles floating
-    goldParticlesRef.current.forEach((particle, i) => {
-      gsap.to(particle, {
-        y: `${Math.random() * 100 - 50}px`,
-        x: `${Math.random() * 100 - 50}px`,
-        scale: 0.8 + Math.random() * 0.4,
-        opacity: 0.4 + Math.random() * 0.4,
-        duration: 2 + Math.random() * 2,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: Math.random() * 2
-      });
-    });
+                {lanterns.map((lantern,index)=>(
 
-    // Main animation sequence
-    tl.to(medallionRef.current, {
-      opacity: 1,
-      scale: 1,
-      duration: 1.8,
-      ease: 'power3.out'
-    })
-    .to('.medallion-layer', {
-      rotation: 360,
-      duration: 25,
-      repeat: -1,
-      ease: 'none',
-      stagger: {
-        each: 0.3,
-        from: 'start'
-      }
-    }, 0)
-    .to(lanternRef.current, {
-      opacity: 1,
-      y: -25,
-      duration: 1.5,
-      ease: 'elastic.out(1, 0.4)'
-    }, 0.6)
-    .to('.lantern-body', {
-      scaleY: 0.98,
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    }, 1.5)
-    .to('.lantern-shine', {
-      scale: 1.3,
-      opacity: 0.9,
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    }, 1.5)
-    .fromTo(nameRef.current.children, {
-      opacity: 0,
-      y: -60,
-      rotationX: 90,
-      scale: 0.8
-    }, {
-      opacity: 1,
-      y: 0,
-      rotationX: 0,
-      scale: 1,
-      duration: 1,
-      stagger: 0.07,
-      ease: 'back.out(2)'
-    }, 1)
-    .fromTo(sloganRef.current, {
-      opacity: 0,
-      y: 40,
-      scale: 0.9
-    }, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 1.2,
-      ease: 'power3.out'
-    }, 2.3)
-    .fromTo(greetingRef.current.children, {
-      opacity: 0,
-      scale: 0.7,
-      y: 30
-    }, {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 1.2,
-      stagger: 0.25,
-      ease: 'elastic.out(1, 0.6)'
-    }, 2.8);
+                    <img
+                        key={lantern.id}
+                        ref={(element)=>{
 
-    // Light rays rotation
-    gsap.to('.light-ray', {
-      rotation: 360,
-      duration: 40,
-      repeat: -1,
-      ease: 'none'
-    });
+                            lanternRefs.current[index]=element;
 
-    // Medallion center pulsing glow
-    gsap.to('.medallion-center', {
-      scale: 1.15,
-      boxShadow: '0 0 70px rgba(251, 191, 36, 1), 0 0 140px rgba(251, 191, 36, 0.7), inset 0 0 40px rgba(255, 255, 255, 0.8)',
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    });
+                        }}
+                        src={lanternImage}
+                        alt=""
+                        className="flying-lantern"
+                        draggable={false}
+                        style={{
+                            left:`${lantern.left}%`,
+                            width:`${lantern.size}px`,
+                            zIndex:lantern.size>100?150:120
+                        }}
+                    />
 
-    // Corner decorations subtle animation
-    gsap.to('.corner-decoration', {
-      scale: 1.1,
-      opacity: 0.35,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-      stagger: 0.5
-    });
+                ))}
 
-    // Exit animation
-    const exitTimer = setTimeout(() => {
-      gsap.to(overlayRef.current, {
-        opacity: 0,
-        duration: 1.5,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          setIsVisible(false);
-          if (onLoadingComplete) onLoadingComplete();
-        }
-      });
-    }, 6000);
+            </div>
 
-    return () => {
-      clearTimeout(exitTimer);
-      tl.kill();
-    };
-  }, [onLoadingComplete]);
+            {/* Content */}
+            <main
+                ref={contentRef}
+                className="mid-autumn-content"
+            >
 
-  if (!isVisible) return null;
+                <p className="festival-eyebrow">
+                    Happy Mid-Autumn Festival
+                </p>
 
-  return (
-    <div className="loading-overlay" ref={overlayRef}>
-      <div className="gradient-bg"></div>
+                <h1 className="festival-title">
+                    中 秋 节 快 乐
+                </h1>
 
-      {/* Golden light rays */}
-      <div className="light-rays">
-        {[...Array(12)].map((_, i) => (
-          <div key={i} className="light-ray" style={{ '--ray-index': i }}></div>
-        ))}
-      </div>
+                <div className="agent-block">
 
-      {/* Chinese Medallion */}
-      <div className="medallion-container" ref={medallionRef}>
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="medallion-layer"></div>
-        ))}
-        <div className="medallion-center"></div>
-      </div>
+                    <h2 className="agent-name">
+                        Robin Tsai
+                    </h2>
 
-      {/* Premium Chinese Lantern */}
-      <div className="premium-lantern" ref={lanternRef}>
-        <div className="lantern-glow"></div>
-        <div className="lantern-top"></div>
-        <div className="lantern-body">
-          <div className="lantern-shine"></div>
-          <div className="lantern-pattern"></div>
+                    <p className="agent-slogan">
+                        Diagnosing your property goals,
+                        <br />
+                        prescribing the right solutions.
+                    </p>
+
+                </div>
+
+                <div
+                    className="loading-indicator"
+                    aria-hidden="true"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </main>
+
         </div>
-        <div className="lantern-bottom"></div>
-        <div className="lantern-tassel"></div>
-      </div>
+    );
 
-      {/* Content */}
-      <div className="content-wrapper">
-        <div className="name-container" ref={nameRef}>
-          {['R', 'o', 'b', 'i', 'n', ' ', 'T', 's', 'a', 'i'].map((letter, i) => (
-            <span key={i} className="name-letter">{letter}</span>
-          ))}
-        </div>
-
-        <div className="slogan" ref={sloganRef}>
-          Diagnosing your property goals, prescribing the right solutions
-        </div>
-
-        <div className="greeting-container" ref={greetingRef}>
-          <div className="main-greeting">恭喜发财</div>
-          <div className="sub-greeting">May Prosperity Come Your Way</div>
-        </div>
-      </div>
-
-      {/* Corner cloud decorations */}
-      <div className="corner-decoration top-left"></div>
-      <div className="corner-decoration top-right"></div>
-      <div className="corner-decoration bottom-left"></div>
-      <div className="corner-decoration bottom-right"></div>
-    </div>
-  );
 };
 
 export default LoadingAnimation;

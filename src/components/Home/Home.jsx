@@ -18,7 +18,7 @@ const Home = () => {
       </div>
       <div className="home-content">
         <div className="home-image">
-          <img src={`${process.env.PUBLIC_URL}/images/vogue.png`} alt="Vogue Magazine Cover" />
+          <img src={`${process.env.PUBLIC_URL}/images/vogueNEW.png`} alt="Vogue Magazine Cover" />
         </div>
         <div className="home-text">
           <h2>ELEVATING YOUR GOALS</h2>

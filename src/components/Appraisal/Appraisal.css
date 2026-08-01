@@ -1,14 +1,9 @@
-/* APPRAISAL SECTION - Mobile First with Carousel */
+/* APPRAISAL SECTION - Mobile First with 3D Carousel */
 
 .appraisal-section {
     position: relative;
     padding: 2rem 1rem;
-    background: linear-gradient(135deg, 
-        #e8f4fd 0%, 
-        #d4edfa 25%, 
-        #b3e5fc 50%, 
-        #81d4fa 75%, 
-        #4fc3f7 100%);
+    background: #D9AA90;
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -21,19 +16,71 @@
     align-items: center;
 }
 
+/* Soft background lighting */
+.appraisal-section::before {
+    content: '';
+    position: absolute;
+    top: -180px;
+    right: -160px;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.24) 0%,
+        rgba(255, 255, 255, 0.06) 45%,
+        transparent 72%
+    );
+
+    pointer-events: none;
+}
+
+.appraisal-section::after {
+    content: '';
+    position: absolute;
+    bottom: -220px;
+    left: -180px;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(166, 94, 70, 0.14) 0%,
+        rgba(166, 94, 70, 0.03) 48%,
+        transparent 72%
+    );
+
+    pointer-events: none;
+}
+
 .appraisal-section h2 {
     font-size: 1.8rem;
-    color: #333;
+    color: #111111;
     margin-bottom: 0.5rem;
     z-index: 2;
     position: relative;
     text-align: center;
-    font-family: 'Comic Sans MS', cursive;
+
+    font-family:
+        'Didot',
+        'Bodoni MT',
+        'Times New Roman',
+        serif;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 1px rgba(255, 255, 255, 0.95),
+        0 0 7px rgba(255, 255, 255, 0.55),
+        0 3px 10px rgba(89, 48, 34, 0.16);
 }
 
 .permission-note {
     font-style: italic;
-    color: #666;
+    color: #4c362d;
     margin-bottom: 2rem;
     margin-top: -0.5rem;
     z-index: 2;
@@ -45,17 +92,29 @@
 .appraisal-section h3 {
     font-size: 1.2rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: #111111;
     z-index: 2;
     position: relative;
     text-align: center;
-    font-family: 'Comic Sans MS', cursive;
+
+    font-family:
+        'Didot',
+        'Bodoni MT',
+        'Times New Roman',
+        serif;
+
+    letter-spacing: 0.5px;
+
+    text-shadow:
+        0 0 1px rgba(255, 255, 255, 0.9),
+        0 2px 7px rgba(89, 48, 34, 0.14);
 }
 
+/* Main two-column layout */
 .feedback-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
     margin-bottom: 2rem;
     z-index: 2;
     position: relative;
@@ -63,104 +122,171 @@
     max-width: 1200px;
 }
 
-.selfies-column, .whatsapp-column {
+.selfies-column,
+.whatsapp-column {
     width: 100%;
 }
 
-.carousel-container {
+/* 3D carousel viewing area */
+.carousel-scene {
     position: relative;
     width: 100%;
-    max-width: 400px;
     margin: 0 auto;
+    perspective: 1100px;
+    perspective-origin: center center;
     overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    background: white;
-    padding: 1rem;
 }
 
-.carousel-track {
-    display: flex;
-    transition: transform 0.3s ease-in-out;
+.image-carousel-scene {
+    max-width: 400px;
+    height: 430px;
 }
 
-.carousel-slide {
-    min-width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Rotating carousel ring */
+.carousel-ring {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 220px;
+    height: 300px;
+
+    transform-style: preserve-3d;
+    transform-origin: center center;
+
+    animation:
+        carousel-spin 22s linear infinite;
+
+    will-change: transform;
 }
 
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    max-height: 400px;
-    object-fit: contain;
-    border-radius: 10px;
+.carousel-ring:hover {
+    animation-play-state: paused;
 }
 
-.carousel-arrow {
+/* Individual carousel panel */
+.carousel-panel {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
+    left: 50%;
+
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+}
+
+/* Image carousel panel positioning */
+.image-panel {
+    width: 190px;
+    height: 270px;
+
+    transform:
+        translate(-50%, -50%)
+        rotateY(
+            calc(
+                360deg /
+                var(--carousel-count) *
+                var(--panel-index)
+            )
+        )
+        translateZ(165px);
+}
+
+/* Gold and black image frame */
+.panel-frame {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(24, 20, 18, 0.99),
+            rgba(5, 5, 5, 0.99)
+        );
+
+    border: 1px solid rgba(228, 189, 103, 0.65);
+    border-radius: 6px;
+
+    box-shadow:
+        0 18px 36px rgba(54, 31, 22, 0.26),
+        0 7px 18px rgba(0, 0, 0, 0.3),
+        0 0 18px rgba(228, 189, 103, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    overflow: hidden;
+}
+
+.panel-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 3px;
+    background: #111111;
+}
+
+/* Decorative carousel pedestal */
+.carousel-base {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+
+    width: 220px;
+    height: 22px;
+
+    transform:
+        translateX(-50%)
+        perspective(300px)
+        rotateX(62deg);
+
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #333;
-    z-index: 10;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(242, 213, 138, 0.7) 0%,
+            rgba(184, 135, 47, 0.55) 28%,
+            rgba(25, 15, 10, 0.75) 66%,
+            rgba(0, 0, 0, 0) 74%
+        );
+
+    filter: blur(0.2px);
+
+    box-shadow:
+        0 0 20px rgba(228, 189, 103, 0.24);
 }
 
-.carousel-arrow:hover {
-    background: white;
-    transform: translateY(-50%) scale(1.1);
+.carousel-base span {
+    position: absolute;
+    top: -145px;
+    left: 50%;
+
+    width: 3px;
+    height: 150px;
+
+    transform: translateX(-50%);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(242, 213, 138, 0),
+            rgba(242, 213, 138, 0.75),
+            rgba(184, 135, 47, 0.85)
+        );
+
+    box-shadow:
+        0 0 8px rgba(228, 189, 103, 0.28);
 }
 
-.carousel-arrow.left {
-    left: 10px;
+/* Slightly different speeds */
+.selfie-ring {
+    animation-duration: 24s;
 }
 
-.carousel-arrow.right {
-    right: 10px;
+.whatsapp-ring {
+    animation-duration: 28s;
+    animation-direction: reverse;
 }
 
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1rem;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ccc;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 0;
-}
-
-.dot.active {
-    background: #007bff;
-    width: 12px;
-    height: 12px;
-}
-
-.dot:hover {
-    background: #007bff;
-    opacity: 0.7;
-}
-
+/* Testimonials section */
 .comments-section {
     margin-top: 2rem;
     z-index: 2;
@@ -169,32 +295,78 @@
     max-width: 1200px;
 }
 
-.testimonial-carousel {
+.testimonial-scene {
     max-width: 100%;
-    padding: 1.5rem;
+    height: 390px;
 }
 
-.testimonial-carousel .carousel-slide {
-    padding: 0 1rem;
+.testimonial-ring {
+    top: 46%;
+    width: 260px;
+    height: 250px;
+    animation-duration: 30s;
 }
 
+/* Testimonial carousel panels */
+.testimonial-panel {
+    width: 280px;
+    min-height: 220px;
+
+    transform:
+        translate(-50%, -50%)
+        rotateY(
+            calc(
+                360deg /
+                var(--carousel-count) *
+                var(--panel-index)
+            )
+        )
+        translateZ(190px);
+}
+
+/* Testimonial card */
 .comment-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-left: 4px solid #007bff;
     width: 100%;
-    min-height: 200px;
+    min-height: 220px;
+    padding: 1.5rem;
+
     display: flex;
     align-items: center;
     position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(24, 20, 18, 0.99),
+            rgba(5, 5, 5, 0.99)
+        );
+
+    border-radius: 6px;
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.42);
+
+    border-left:
+        3px solid
+        #d8ae54;
+
+    box-shadow:
+        0 18px 38px rgba(54, 31, 22, 0.24),
+        0 8px 20px rgba(0, 0, 0, 0.28),
+        0 0 18px rgba(228, 189, 103, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    backface-visibility: visible;
 }
 
 .comment-card p {
+    position: relative;
+    z-index: 2;
+
     font-size: 0.9rem;
     line-height: 1.6;
-    color: #444;
+    color: #eee7dc;
     margin: 0;
     text-align: left;
     white-space: pre-line;
@@ -203,8 +375,8 @@
 .comment-card::before {
     content: '"';
     font-size: 2rem;
-    color: #007bff;
-    opacity: 0.3;
+    color: #e4bd67;
+    opacity: 0.5;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -213,154 +385,316 @@
 .comment-card::after {
     content: '"';
     font-size: 2rem;
-    color: #007bff;
-    opacity: 0.3;
+    color: #e4bd67;
+    opacity: 0.5;
     position: absolute;
     bottom: 10px;
     right: 10px;
 }
 
+.testimonial-base {
+    bottom: 18px;
+    width: 280px;
+}
+
+/* Slow carnival carousel rotation */
+@keyframes carousel-spin {
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotateY(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotateY(-360deg);
+    }
+}
+
+/* SMALL MOBILE - 480px and up */
 @media (min-width: 480px) {
     .appraisal-section {
         padding: 2.5rem 1rem;
+        background: #D9AA90;
     }
-    
+
     .appraisal-section h2 {
         font-size: 2rem;
-        font-family: 'Comic Sans MS', cursive;
+
+        font-family:
+            'Didot',
+            'Bodoni MT',
+            'Times New Roman',
+            serif;
     }
-    
+
     .appraisal-section h3 {
         font-size: 1.3rem;
-        font-family: 'Comic Sans MS', cursive;
+
+        font-family:
+            'Didot',
+            'Bodoni MT',
+            'Times New Roman',
+            serif;
     }
-    
+
     .permission-note {
         font-size: 0.9rem;
     }
-    
-    .carousel-container {
+
+    .image-carousel-scene {
         max-width: 450px;
+        height: 470px;
     }
-    
-    .carousel-arrow {
-        width: 45px;
-        height: 45px;
-        font-size: 1.8rem;
+
+    .image-panel {
+        width: 215px;
+        height: 305px;
+
+        transform:
+            translate(-50%, -50%)
+            rotateY(
+                calc(
+                    360deg /
+                    var(--carousel-count) *
+                    var(--panel-index)
+                )
+            )
+            translateZ(190px);
     }
-    
+
+    .carousel-base {
+        width: 250px;
+    }
+
+    .testimonial-scene {
+        height: 420px;
+    }
+
+    .testimonial-panel {
+        width: 340px;
+        min-height: 235px;
+
+        transform:
+            translate(-50%, -50%)
+            rotateY(
+                calc(
+                    360deg /
+                    var(--carousel-count) *
+                    var(--panel-index)
+                )
+            )
+            translateZ(225px);
+    }
+
     .comment-card {
+        min-height: 235px;
         padding: 2rem;
     }
-    
+
     .comment-card p {
         font-size: 1rem;
     }
 }
 
+/* TABLET - 768px and up */
 @media (min-width: 768px) {
     .appraisal-section {
         padding: 3rem 2rem;
         min-height: 100vh;
+        background: #D9AA90;
     }
-    
+
     .appraisal-section h2 {
         font-size: 2.2rem;
         margin-bottom: 1rem;
-        font-family: 'Comic Sans MS', cursive;
+
+        font-family:
+            'Didot',
+            'Bodoni MT',
+            'Times New Roman',
+            serif;
     }
-    
+
     .feedback-container {
         flex-direction: row;
         gap: 2rem;
         margin-bottom: 3rem;
     }
-    
-    .selfies-column, .whatsapp-column {
+
+    .selfies-column,
+    .whatsapp-column {
         flex: 1;
+        min-width: 0;
     }
-    
-    .carousel-container {
+
+    .image-carousel-scene {
         max-width: 500px;
+        height: 520px;
     }
-    
-    .carousel-slide img {
-        max-height: 500px;
+
+    .carousel-ring {
+        width: 250px;
+        height: 340px;
     }
-    
-    .carousel-arrow {
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
+
+    .image-panel {
+        width: 230px;
+        height: 330px;
+
+        transform:
+            translate(-50%, -50%)
+            rotateY(
+                calc(
+                    360deg /
+                    var(--carousel-count) *
+                    var(--panel-index)
+                )
+            )
+            translateZ(205px);
     }
-    
-    .testimonial-carousel {
-        max-width: 800px;
+
+    .carousel-base {
+        width: 280px;
+    }
+
+    .testimonial-scene {
+        max-width: 850px;
+        height: 470px;
         margin: 0 auto;
     }
-    
-    .comment-card {
-        padding: 2.5rem;
-        min-height: 250px;
+
+    .testimonial-ring {
+        width: 360px;
+        height: 280px;
     }
-    
+
+    .testimonial-panel {
+        width: 500px;
+        min-height: 250px;
+
+        transform:
+            translate(-50%, -50%)
+            rotateY(
+                calc(
+                    360deg /
+                    var(--carousel-count)) *
+                    var(--panel-index)
+                )
+            )
+            translateZ(310px);
+    }
+
+    .comment-card {
+        min-height: 250px;
+        padding: 2.5rem;
+    }
+
     .comment-card p {
         font-size: 1.1rem;
         line-height: 1.8;
     }
-    
+
     .comment-card::before,
     .comment-card::after {
         font-size: 3rem;
     }
+
+    .testimonial-base {
+        width: 360px;
+    }
 }
 
+/* DESKTOP - 1024px and up */
 @media (min-width: 1024px) {
     .appraisal-section {
         padding: 3rem;
+        background: #D9AA90;
     }
-    
+
     .appraisal-section h2 {
         font-size: 2.5rem;
         margin-bottom: 1rem;
-        font-family: 'Comic Sans MS', cursive;
+
+        font-family:
+            'Didot',
+            'Bodoni MT',
+            'Times New Roman',
+            serif;
     }
-    
+
     .appraisal-section h3 {
         font-size: 1.5rem;
-        font-family: 'Comic Sans MS', cursive;
+
+        font-family:
+            'Didot',
+            'Bodoni MT',
+            'Times New Roman',
+            serif;
     }
-    
-    .carousel-container {
+
+    .image-carousel-scene {
         max-width: 600px;
+        height: 590px;
     }
-    
-    .carousel-slide img {
-        max-height: 600px;
+
+    .image-panel {
+        width: 260px;
+        height: 380px;
+
+        transform:
+            translate(-50%, -50%)
+            rotateY(
+                calc(
+                    360deg /
+                    var(--carousel-count) *
+                    var(--panel-index)
+                )
+            )
+            translateZ(235px);
     }
-    
+
     .comments-section {
         margin-top: 3rem;
     }
-    
-    .testimonial-carousel {
-        max-width: 900px;
+
+    .testimonial-scene {
+        max-width: 950px;
+        height: 500px;
     }
-    
+
+    .testimonial-panel {
+        width: 620px;
+        min-height: 270px;
+
+        transform:
+            translate(-50%, -50%)
+            rotateY(
+                calc(
+                    360deg /
+                    var(--carousel-count) *
+                    var(--panel-index)
+                )
+            )
+            translateZ(375px);
+    }
+
     .comment-card {
+        min-height: 270px;
         padding: 3rem;
     }
-    
+
     .comment-card p {
         font-size: 1.2rem;
     }
-    
+
     .comment-card::before {
         font-size: 4rem;
         top: 15px;
         left: 15px;
     }
-    
+
     .comment-card::after {
         font-size: 4rem;
         bottom: 15px;
@@ -368,12 +702,16 @@
     }
 }
 
+/* TOUCH-SCREEN DEVICES */
 @media (hover: none) and (pointer: coarse) {
-    .carousel-arrow {
-        opacity: 0.7;
+    .carousel-ring {
+        animation-play-state: running;
     }
-    
-    .carousel-arrow:active {
-        transform: translateY(-50%) scale(0.95);
+}
+
+/* REDUCED-MOTION ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-ring {
+        animation-duration: 90s;
     }
 }
