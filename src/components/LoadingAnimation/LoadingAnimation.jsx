@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import "./LoadingAnimation.css";
 
-const landscapeMoon = "/RobinTsai-RealEstate/images/landscapeMoon.png";
-const portraitMoon = "/RobinTsai-RealEstate/images/portraitMoon.png";
-const lanternImage = "/RobinTsai-RealEstate/images/lantern.png";
+const landscapeMoon = `${process.env.PUBLIC_URL}/images/landscapeMoon.png`;
+const portraitMoon = `${process.env.PUBLIC_URL}/images/portraitMoon.png`;
+const lanternImage = `${process.env.PUBLIC_URL}/images/lantern.png`;
 
 const DISPLAY_DURATION = 5000;
 

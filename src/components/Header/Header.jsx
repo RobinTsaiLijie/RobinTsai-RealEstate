@@ -83,7 +83,7 @@ const Header = () => {
                 className={activeSection === 'projects' ? 'active' : ''}
                 onClick={(e) => handleNavClick(e, 'projects')}
               >
-                New Launch Project
+                Financial Calculation
               </a>
             </li>
             <li>

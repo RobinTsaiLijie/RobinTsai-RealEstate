@@ -1,7 +1,7 @@
 {
   "name": "robin-tsai-portfolio",
   "version": "1.0.0",
-  "homepage": ".",
+  "homepage": "https://RobinTsaiLijie.github.io/RobinTsai-RealEstate",
   "private": true,
   "dependencies": {
     "gsap": "^3.13.0",
